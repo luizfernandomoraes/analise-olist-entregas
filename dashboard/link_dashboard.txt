@@ -1,2 +1,3 @@
 Cole aqui o link de visualização do seu relatório Looker Studio após publicar.
-https://datastudio.google.com/u/0/reporting/799589d0-f450-49a0-ae85-31886e990c43/page/EAUDG/edit
+
+https://datastudio.google.com/u/0/reporting/799589d0-f450-49a0-ae85-31886e990c43/page/EAUDG
