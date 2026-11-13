@@ -93,6 +93,15 @@ df["mes_compra"] = (
 )
 
 
+# Calcula a média somente dos atrasos reais (valores maiores que zero).
+# Se não houver pedidos atrasados no grupo, retorna NaN.
+def media_atraso_positivo(valores):
+    atrasos = valores[valores > 0]
+    if atrasos.empty:
+        return np.nan
+    return atrasos.mean()
+
+
 # 7. KPI geral
 kpis = pd.DataFrame([{
     "pedidos_analisados": int(df["order_id"].nunique()),
@@ -124,7 +133,7 @@ avaliacoes = df.groupby("faixa_entrega", as_index=False).agg(
     ),
     atraso_medio_dias=(
         "atraso_dias",
-        lambda s: s[s > 0].mean()
+        media_atraso_positivo
     ),
 )
 
@@ -146,7 +155,7 @@ estado = df.groupby("customer_state", dropna=False).agg(
     ),
     atraso_medio_dias=(
         "atraso_dias",
-        lambda s: s[s > 0].mean()
+        media_atraso_positivo
     ),
     nota_media=("review_score", "mean"),
 ).reset_index().rename(
@@ -171,7 +180,7 @@ mes = df.groupby("mes_compra", as_index=False).agg(
     ),
     atraso_medio_dias=(
         "atraso_dias",
-        lambda s: s[s > 0].mean()
+        media_atraso_positivo
     ),
     nota_media=("review_score", "mean"),
 )
